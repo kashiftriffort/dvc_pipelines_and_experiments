@@ -1,0 +1,50 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python3 src/prepare.py
+    deps:
+    - path: src/prepare.py
+      md5: 87c12c67ae41fc41971066dc37298de3
+      size: 904
+    params:
+      params.yaml:
+        prepare.categories:
+        - comp.graphics
+        - sci.space
+    outs:
+    - path: data/prepared
+      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
+      size: 3720018
+      nfiles: 2
+  featurize:
+    cmd: python3 src/featurize.py data/prepared data/features
+    deps:
+    - path: data/prepared
+      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
+      size: 3720018
+      nfiles: 2
+    - path: src/featurize.py
+      md5: 1b622320ff3a787955f8732f50821661
+      size: 1413
+    outs:
+    - path: data/features
+      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
+      size: 481545670
+      nfiles: 2
+  train:
+    cmd: python3 src/train.py data/features model.pkl
+    deps:
+    - path: data/features
+      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
+      size: 481545670
+      nfiles: 2
+    - path: src/train.py
+      md5: af8a3f884e8047ee977f320e56d19761
+      size: 745
+    params:
+      params.yaml:
+        train.alpha: 0.1
+    outs:
+    - path: model.pkl
+      md5: 9a767b490e7dcdf297cfe7809bb8be17
+      size: 982958
