@@ -10,33 +10,33 @@ stages:
       params.yaml:
         prepare.categories:
         - comp.graphics
-        - sci.space
+        - rec.sport.baseball
     outs:
     - path: data/prepared
-      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
-      size: 3720018
+      md5: 77cdc4b415254bc15c5d109816504915.dir
+      size: 3277682
       nfiles: 2
   featurize:
     cmd: python3 src/featurize.py data/prepared data/features
     deps:
     - path: data/prepared
-      md5: 3a909cff29bc5982f1a7cedfbae14d58.dir
-      size: 3720018
+      md5: 77cdc4b415254bc15c5d109816504915.dir
+      size: 3277682
       nfiles: 2
     - path: src/featurize.py
       md5: e3883a8aa325d38aa82e2c321d682b09
       size: 1375
     outs:
     - path: data/features
-      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
-      size: 481545670
+      md5: 683147ce3d11b5b5457f7d78f86ee417.dir
+      size: 418297564
       nfiles: 2
   train:
     cmd: python3 src/train.py data/features model.pkl
     deps:
     - path: data/features
-      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
-      size: 481545670
+      md5: 683147ce3d11b5b5457f7d78f86ee417.dir
+      size: 418297564
       nfiles: 2
     - path: src/train.py
       md5: 75d61c346f7850671f96bb43b9a1a31e
@@ -46,25 +46,25 @@ stages:
         train.alpha: 0.9
     outs:
     - path: model.pkl
-      md5: bf9d028f34c2874c8352d3f721acef21
-      size: 982958
+      md5: 799929eaf8347b7874ffcf5b5193da4e
+      size: 850894
   evaluate:
     cmd: python3 src/evaluate.py model.pkl data/features scores.json plots.json
     deps:
     - path: data/features
-      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
-      size: 481545670
+      md5: 683147ce3d11b5b5457f7d78f86ee417.dir
+      size: 418297564
       nfiles: 2
     - path: model.pkl
-      md5: bf9d028f34c2874c8352d3f721acef21
-      size: 982958
+      md5: 799929eaf8347b7874ffcf5b5193da4e
+      size: 850894
     - path: src/evaluate.py
       md5: 65b9afd9adeb762b6947f1d5b00c7159
       size: 1351
     outs:
     - path: plots.json
-      md5: f21afafcbbc78cfe12dfec3a2809600f
-      size: 70380
+      md5: b6ce4fb6a5d571a1f5cb020103357a0a
+      size: 66371
     - path: scores.json
-      md5: ad5de534a1a63db196e036efe9419fdc
+      md5: 28f813227633cee688a9ad8cf15a4dc3
       size: 27
