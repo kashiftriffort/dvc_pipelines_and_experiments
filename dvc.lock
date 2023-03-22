@@ -24,8 +24,8 @@ stages:
       size: 3720018
       nfiles: 2
     - path: src/featurize.py
-      md5: 1b622320ff3a787955f8732f50821661
-      size: 1413
+      md5: e3883a8aa325d38aa82e2c321d682b09
+      size: 1375
     outs:
     - path: data/features
       md5: bd8f83cc81185bd256ce1aee3d27456c.dir
@@ -39,12 +39,32 @@ stages:
       size: 481545670
       nfiles: 2
     - path: src/train.py
-      md5: af8a3f884e8047ee977f320e56d19761
-      size: 745
+      md5: 75d61c346f7850671f96bb43b9a1a31e
+      size: 702
     params:
       params.yaml:
-        train.alpha: 0.1
+        train.alpha: 0.9
     outs:
     - path: model.pkl
-      md5: 9a767b490e7dcdf297cfe7809bb8be17
+      md5: bf9d028f34c2874c8352d3f721acef21
       size: 982958
+  evaluate:
+    cmd: python3 src/evaluate.py model.pkl data/features scores.json plots.json
+    deps:
+    - path: data/features
+      md5: bd8f83cc81185bd256ce1aee3d27456c.dir
+      size: 481545670
+      nfiles: 2
+    - path: model.pkl
+      md5: bf9d028f34c2874c8352d3f721acef21
+      size: 982958
+    - path: src/evaluate.py
+      md5: 65b9afd9adeb762b6947f1d5b00c7159
+      size: 1351
+    outs:
+    - path: plots.json
+      md5: f21afafcbbc78cfe12dfec3a2809600f
+      size: 70380
+    - path: scores.json
+      md5: ad5de534a1a63db196e036efe9419fdc
+      size: 27

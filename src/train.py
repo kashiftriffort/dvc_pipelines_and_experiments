@@ -10,9 +10,7 @@ if len(sys.argv) != 3:
     sys.exit(1)
 
 features_path = sys.argv[1]
-print(features_path)
 model_filename = sys.argv[2]
-print(model_filename)
 
 params = yaml.safe_load(open('params.yaml'))['train']
 alpha = params['alpha']

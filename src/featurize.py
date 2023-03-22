@@ -11,9 +11,7 @@ if len(sys.argv) != 3:
     sys.exit(1)
 
 data_path = sys.argv[1]
-print(data_path)
 features_path = sys.argv[2]
-print(features_path)
 
 os.makedirs(features_path, exist_ok=True)
 
